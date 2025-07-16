@@ -1,0 +1,18 @@
+networks:
+  default:
+    name: Strapi
+
+services:
+  strapi-container:
+    image: node:18
+    container_name: strapi
+    command: bash
+    stdin_open: true
+    tty: true
+    ports: 
+      - "1337:1337"
+  mysql-container:
+    image: mysql:8.4
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password

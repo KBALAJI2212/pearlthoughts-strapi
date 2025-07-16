@@ -1,0 +1,23 @@
+docker exec -it strapi bash
+Install packages proceed : type y (yes)
+
+enter name of project- example: test-strapi
+Please log in or sign up. Select Skip
+? Do you want to use the default database (sqlite) ? No
+? Choose your default database client : select mysql
+? Database name: mysql
+? Host: mysql
+? Port: 3306
+? Username: root
+? Password: enter your DB Password
+? Enable SSL connection: No
+? Start with an example structure & data? Yes
+? Start with Typescript? Yes
+? Install dependencies with npm? Yes
+? Initialize a git repository? Yes
+
+
+Go into project directory : cd {name of project}
+run the following command : npm run develop
+
+Then open browser and type :  http://localhost:1337/admin to go to admin panel.
