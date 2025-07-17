@@ -12,12 +12,16 @@ I used **Docker** to run Strapi in a container, but if you want to run it native
 - Run the following command:
     ```bash
     git clone https://github.com/KBALAJI2212/pearlthoughts-strapi.git
-    cd Day-1/
+    cd Balaji/Day-1/
     docker compose up -d
     ```
 -   Login to your container:
     ```bash
     docker exec -it strapi bash
+    ```
+- Run the following command:
+    ```bash
+    npx create-strapi@latest
     ```
 -   Confirm Installing the packages.
 -   Enter name of project : Example: ```Test-Strapi```
