@@ -1,6 +1,6 @@
 ### _This guide explains how to set up and run a **Strapi** CMS instance locally._
 
-I used **Docker** to run Strapi in a container, but if you want to run it natively make sure you have the following in your local environment:
+I used **Docker** to run Strapi in a container, but if you want to run it natively make sure you have the following in your local environment
 
 - Nodejs
 - Running SQL database that you can connect with your Strapi instance
