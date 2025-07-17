@@ -86,3 +86,7 @@ I used **Docker** to run Strapi in a container, but if you want to run it native
 
 -   Open browser and type :  ```http://localhost:1337/admin``` to go to admin panel.
 ---
+
+Video Link: [https://youtu.be/3LExhnLAb9k](https://youtu.be/3LExhnLAb9k)
+
+PR: [https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2](https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2)

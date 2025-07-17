@@ -1,4 +1,5 @@
 docker exec -it strapi bash
+npx create-strapi@latest
 Install packages proceed : type y (yes)
 
 enter name of project- example: test-strapi
