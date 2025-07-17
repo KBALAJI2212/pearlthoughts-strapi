@@ -12,7 +12,7 @@ I used **Docker** to run Strapi in a container, but if you want to run it native
 - Run the following command:
     ```bash
     git clone https://github.com/KBALAJI2212/pearlthoughts-strapi.git
-    cd Balaji/Day-1/
+    cd Day-1/
     docker compose up -d
     ```
 -   Login to your container:
