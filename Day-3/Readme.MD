@@ -7,7 +7,7 @@
 #### Prerequisites
 
 - Docker
-- Require an existing Strapi Docker Image with Database Env Variables baked in(Refer Day-2 to create) (or) use mine ```kbalaji2212/projects:strapi```
+- Require an existing Strapi Docker Image with Database Env Variables baked in (Refer Day-2 to create) (or) use mine ```kbalaji2212/projects:strapi```
 
 ---
 
@@ -17,7 +17,7 @@ Two ways:
 -  Docker commands
 -  Docker compose
 
-##### Docker commands
+#### Docker commands
 
 - Copy the ```nginx/nginx.conf``` into your local environment.
 
@@ -74,7 +74,7 @@ IMPORTANT :
 - Open browser and type:  ```http://localhost:80/admin``` to go to admin panel, now available on port 80.
 
 
-##### Docker compose
+#### Docker compose
 
 - Copy the ```nginx/nginx.conf``` into your local environment.
 - Copy the ```docker-compose.yaml``` into your local environment.
@@ -118,7 +118,7 @@ IMPORTANT :
 
 ---
 
-###### Strapi Is Not Publicly Exposed by Default
+#### Strapi Is Not Publicly Exposed by Default
 
 To enhance security, Strapi is not directly exposed to the internet or your local machine. This means:
 
