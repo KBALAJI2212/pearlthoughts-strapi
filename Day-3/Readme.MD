@@ -136,6 +136,6 @@ To enhance security, Strapi is not directly exposed to the internet or your loca
 
 ---
 
-Video Link: []()
+Video Link: [https://youtu.be/h6t_p2aXdu8](https://youtu.be/h6t_p2aXdu8)
 
 PR: [https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2](https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2)
