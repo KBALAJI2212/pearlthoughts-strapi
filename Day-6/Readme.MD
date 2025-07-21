@@ -68,6 +68,6 @@
 ```
 ---
 
-Video Link: []()
+Video Link: [https://youtu.be/Cfg8HiXpAdU](https://youtu.be/Cfg8HiXpAdU)
 
 PR: [https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2](https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2)
