@@ -71,3 +71,12 @@
 Video Link: [https://youtu.be/Cfg8HiXpAdU](https://youtu.be/Cfg8HiXpAdU)
 
 PR: [https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2](https://github.com/PearlThoughts-DevOps-Internship/Strapi--Script-Smiths/pull/2)
+
+---
+
+<h2>PROJECT SCREENSHOTS</h2>
+
+<p float="left">
+  <img src="screenshots/aws_login.png" width="300"/>
+  <img src="screenshots/strapi_logs.png" width="300"/>
+</p>
