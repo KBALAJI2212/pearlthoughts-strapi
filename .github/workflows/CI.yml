@@ -19,11 +19,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Show contents
-        run: |
-          ls -al Day-7/strapi
-          ls -al Day-7/strapi/test-strapi || echo "test-strapi missing"
-
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3
 
@@ -42,7 +37,7 @@ jobs:
       - name: Build and push Docker image
         working-directory: Day-7/strapi
         run: |
-          docker build -t $IMAGE_REPO:$IMAGE_TAG .
+          docker build -t $IMAGE_REPO:$IMAGE_TAG ./test-strapi/dockerfile
           docker push $IMAGE_REPO:$IMAGE_TAG
 
       - name: Commit image tag to repo
