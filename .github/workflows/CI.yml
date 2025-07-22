@@ -35,9 +35,9 @@ jobs:
           echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
 
       - name: Build and push Docker image
-        working-directory: Day-7/strapi
+        working-directory: Day-7/strapi/test-strapi
         run: |
-          docker build -t $IMAGE_REPO:$IMAGE_TAG ./test-strapi/dockerfile
+          docker build -t $IMAGE_REPO:$IMAGE_TAG .
           docker push $IMAGE_REPO:$IMAGE_TAG
 
       - name: Commit image tag to repo
