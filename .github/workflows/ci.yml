@@ -30,7 +30,7 @@ jobs:
         run: |
           TAG="strapi-v${GITHUB_RUN_NUMBER}"
           echo "IMAGE_TAG=$TAG" >> $GITHUB_ENV
-          echo "$TAG" > image_tag.txt
+          # echo "$TAG" > image_tag.txt
 
       - name: Build and push Docker image
         working-directory: Day-7/strapi
@@ -38,8 +38,11 @@ jobs:
           docker build -t $IMAGE_REPO:$IMAGE_TAG .
           docker push $IMAGE_REPO:$IMAGE_TAG
 
-      - name: Upload image tag
-        uses: actions/upload-artifact@v4
-        with:
-          name: image_tag
-          path: image_tag.txt
+      - name: Commit image tag to repo
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          echo "$IMAGE_TAG" > image_tag.txt
+          git add image_tag.txt
+          git commit -m "Update image tag to $IMAGE_TAG"
+          git push origin main
