@@ -28,9 +28,9 @@ resource "aws_security_group" "strapi_sg" {
 
 resource "aws_instance" "strapi" {
   ami                         = var.ami_id
-  instance_type               = "t3.micro"
+  instance_type               = "t3.medium"
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.strapi_sg.id] # I am using default VPC
+  vpc_security_group_ids      = [aws_security_group.strapi_sg.id] # I am using default VPC and Default Subnet
   key_name                    = var.ssh_key_name
 
   root_block_device {
