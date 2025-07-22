@@ -14,7 +14,7 @@ ENV DATABASE_PASSWORD=password
 #--------Copying Local App directory--------------
 WORKDIR /strapi/
 COPY ./test-strapi/ /strapi/
-
+RUN echo "== Files copied into container ==" && ls -al /strapi
 #--------Installing dependencies--------------
 RUN npm install && npm install pg --save
 
