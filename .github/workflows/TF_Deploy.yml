@@ -39,4 +39,6 @@ jobs:
 
       - name: Show Strapi Admin URL
         working-directory: ${{ env.TF_DIR }}
-        run: terraform output strapi_address
+        run: |
+          echo "Strapi Admin URL:"
+          terraform output strapi_address
