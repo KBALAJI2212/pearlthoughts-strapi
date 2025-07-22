@@ -24,6 +24,11 @@ resource "aws_security_group" "strapi_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name  = "Strapi_Instance(Balaji)"
+    Owner = "Balaji"
+  }
 }
 
 resource "aws_instance" "strapi" {
