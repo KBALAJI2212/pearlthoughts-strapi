@@ -39,7 +39,7 @@ jobs:
           docker push $IMAGE_REPO:$IMAGE_TAG
 
       - name: Upload image tag
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: image_tag
           path: image_tag.txt
