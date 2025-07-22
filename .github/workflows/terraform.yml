@@ -1,4 +1,4 @@
-name: CD - Terraform Deploy
+name: CD - Terraform EC2 Deploy
 
 on:
   workflow_dispatch:
