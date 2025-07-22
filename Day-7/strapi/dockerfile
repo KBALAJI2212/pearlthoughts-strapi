@@ -13,6 +13,7 @@ ENV DATABASE_PASSWORD=password
 
 #--------Copying Local App directory--------------
 WORKDIR /strapi/
+RUN echo "== Checking build context ==" && ls -al && ls -al ./test-strapi || echo "test-strapi not found"
 COPY ./test-strapi/ /strapi/
 
 #--------Installing dependencies--------------
