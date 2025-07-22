@@ -33,6 +33,7 @@ jobs:
           echo "$TAG" > image_tag.txt
 
       - name: Build and push Docker image
+        working-directory: Day-7/strapi
         run: |
           docker build -t $IMAGE_REPO:$IMAGE_TAG .
           docker push $IMAGE_REPO:$IMAGE_TAG
