@@ -13,10 +13,9 @@ ENV DATABASE_PASSWORD=password
 
 #--------Copying Local App directory--------------
 WORKDIR /strapi/
-RUN echo "== Checking build context ==" && ls -al && ls -al ./test-strapi || echo "test-strapi not found"
-RUN echo "Build context contents:" && ls -al && ls -al ./strapi/test-strapi || echo "strapi/test-strapi not found"
+RUN echo "== Checking build context ==" && ls -al
 
-COPY . /strapi/
+COPY . .
 
 #--------Installing dependencies--------------
 RUN npm install && npm install pg --save
