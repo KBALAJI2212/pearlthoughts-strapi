@@ -36,9 +36,3 @@ jobs:
       - name: Terraform Destroy
         working-directory: ${{ env.TF_DIR }}
         run: terraform destroy -auto-approve -var="image_tag=$IMAGE_TAG"
-
-      - name: Show Strapi Admin URL
-        working-directory: ${{ env.TF_DIR }}
-        run: |
-          echo "Strapi Admin URL:"
-          terraform output strapi_address
