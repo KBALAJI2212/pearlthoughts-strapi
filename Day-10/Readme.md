@@ -1,11 +1,11 @@
-### _This guide explains how to automate the deployment of a Dockerized Strapi app to an AWS EC2 instance using GitHub Actions and Terraform._
+### _This guide explains how to automate the deployment of a Dockerized Strapi app to an AWS ECS Task using GitHub Actions and Terraform._
 
 ---
 
 ## Prerequisites
 
 - GitHub Repository
-- DockerHub Repository
+- ECR Repository
 - AWS IAM User credentials (Access Key & Secret)
 
 ---
@@ -16,8 +16,6 @@ In your GitHub repository, go to **Settings → Secrets and variables → Action
 
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
-- `DOCKER_HUB_USERNAME`
-- `DOCKER_HUB_TOKEN`
 
 ---
 
@@ -25,19 +23,19 @@ In your GitHub repository, go to **Settings → Secrets and variables → Action
 ```bash
     git clone https://github.com/KBALAJI2212/pearlthoughts-strapi.git
 
-    cd pearlthoughts-strapi/Day-7/
+    cd pearlthoughts-strapi/Day-10/
 
 ```
 -  Go through the ```ci.yml``` and ```terraform.yml``` and change the file to suit your repository structure.
 
 
-- ```IMPORTANT```: Configure ```main.tf``` file as needed :
-```bash
-  ami                         = "ami-0eb9d6fc9fab44d24"    #Amazon Linux 2023 AMI for us-east-2. Change if needed.
-  instance_type               = "t3.small"                 #Change if needed
-  key_name                    = "strapi_key_balaji"        #Replace with your own keypair to have SSH access
+- ```IMPORTANT```: Configure ```main.tf```, ```ecr.tf```, ```variables.tf``` file as needed.
 
-```
+- Now every ```push to main``` branch will start a workflow which will build, tag and push strapi image to ```ECR Repository```.
+
+- ```Manually``` start the ```Terraform Deploy``` workflow to deploy resources in AWS.
+
+- ```Manually``` start the ```Terraform Destroy``` workflow to destroy resources in AWS.
 
 ---
 
@@ -46,7 +44,8 @@ In your GitHub repository, go to **Settings → Secrets and variables → Action
 After successful deployment, you’ll see output like:
 
 ```bash
-    Strapi_address = http://<public-ip>:1337/admin
+
+    app_lb_endpoint = http://<app_lb_dns>/admin
 
     #Paste this in your browser to access the admin panel.
 ```
