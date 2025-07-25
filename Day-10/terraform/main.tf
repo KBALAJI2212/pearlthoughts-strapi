@@ -161,7 +161,7 @@ resource "aws_db_parameter_group" "strapi_postgres_param_group" {
 resource "aws_db_instance" "strapi_rds_postgresql" {
   allocated_storage      = 10
   db_name                = var.database_name
-  identifier             = "strapi-postgres"
+  identifier             = "strapi-postgres-balaji"
   engine                 = "postgres"
   engine_version         = "17.2"
   instance_class         = "db.t3.micro"
