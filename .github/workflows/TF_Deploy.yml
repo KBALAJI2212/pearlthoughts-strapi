@@ -48,6 +48,7 @@ jobs:
 
       - name: Commit Statefile to Repo
         working-directory: ${{ env.TF_DIR }}
+        if: always()
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
