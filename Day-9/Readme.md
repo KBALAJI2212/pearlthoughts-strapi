@@ -1,4 +1,4 @@
-### _This guide explains how to deploy of a Strapi app as an AWS ECS Task using Terraform._
+### _This guide explains how to deploy Strapi app as an AWS ECS Task using Terraform._
 
 ---
 
@@ -16,7 +16,7 @@
 ```bash
     git clone https://github.com/KBALAJI2212/pearlthoughts-strapi.git
 
-    cd pearlthoughts-strapi/Day-9/
+    cd pearlthoughts-strapi/Day-9/terraform
 
 ```
 
