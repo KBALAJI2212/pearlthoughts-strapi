@@ -36,7 +36,7 @@ variable "image_tag" {
 variable "ecr_repo" {
   description = "ECR REPO NAME"
   type        = string
-  default     = "607700977843.dkr.ecr.us-east-1.amazonaws.com/kbalaji2212/projects"
+  default     = "607700977843.dkr.ecr.us-east-2.amazonaws.com/kbalaji2212/projects"
 }
 
 locals {
