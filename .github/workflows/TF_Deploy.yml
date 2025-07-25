@@ -53,4 +53,4 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add terraform.tfstate
           git commit -m "Statefile"
-          git push origin main
+          git push origin main --force
