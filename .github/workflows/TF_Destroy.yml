@@ -42,12 +42,3 @@ jobs:
         run: |
           echo "Strapi Admin URL:"
           terraform output strapi_address
-
-      - name: Commit Statefile to Repo
-        working-directory: ${{ env.TF_DIR }}
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add terraform.tfstate
-          git commit -m "Statefile"
-          git push origin main
