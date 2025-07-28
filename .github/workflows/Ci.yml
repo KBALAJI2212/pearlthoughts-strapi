@@ -39,7 +39,7 @@ jobs:
           echo "IMAGE_TAG=strapi-v${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
 
       - name: Build and push Docker image
-        working-directory: Day-10/strapi/
+        working-directory: _Day-11/strapi/
         run: |
           docker build -t $IMAGE_REPO:$IMAGE_TAG .
           docker push $IMAGE_REPO:$IMAGE_TAG
