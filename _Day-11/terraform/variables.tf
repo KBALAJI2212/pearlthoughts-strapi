@@ -44,7 +44,9 @@ variable "ecr_repo" {
 }
 
 locals {
-  database_host = aws_db_instance.strapi_rds_postgresql.address
+  database_host   = aws_db_instance.strapi_rds_postgresql.address
+  alb_metric_name = replace(aws_lb.app_lb.arn_suffix, "loadbalancer/", "")
+  tg_metric_name  = replace(aws_lb_target_group.app_tg.arn_suffix, "targetgroup/", "")
 }
 
 output "app_lb_endpoint" {

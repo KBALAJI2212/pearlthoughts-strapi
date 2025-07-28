@@ -122,7 +122,7 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         properties = {
           title = "ALB Target Response Time (strapi-balaji)",
           metrics = [
-            ["AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", "app/app-lb-strapi-balaji/e5eedf6743a7cc3a"]
+            ["AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", local.alb_metric_name]
           ],
           stat   = "Average",
           region = "us-east-2",
@@ -138,7 +138,7 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         properties = {
           title = "Target Group Health Check (strapi-balaji)",
           metrics = [
-            ["AWS/ApplicationELB", "HealthyHostCount", "TargetGroup", "targetgroup/strapi-target-group-balaji/fd9a5648459d8590", "LoadBalancer", "app/app-lb-strapi-balaji/e5eedf6743a7cc3a"],
+            ["AWS/ApplicationELB", "HealthyHostCount", "TargetGroup", local.tg_metric_name, "LoadBalancer", local.alb_metric_name],
             [".", "UnHealthyHostCount", ".", ".", ".", "."]
           ],
           stat   = "Average",
