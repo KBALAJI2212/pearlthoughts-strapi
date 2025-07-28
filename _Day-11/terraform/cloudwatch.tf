@@ -55,13 +55,13 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         width  = 12,
         height = 6,
         properties = {
-          title = "Strapi ECS CPU Usage"
+          title = "ECS CPU Utilization (strapi-balaji)",
           metrics = [
             ["AWS/ECS", "CPUUtilization", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name]
-          ]
+          ],
+          stat   = "Average",
+          region = "us-east-2",
           period = 60
-          stat   = "Average"
-          region = var.aws_region
         }
       },
       {
@@ -71,13 +71,13 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         width  = 12,
         height = 6,
         properties = {
-          title = "Strapi Memory Usage"
+          title = "ECS Memory Utilization (strapi-balaji)",
           metrics = [
             ["AWS/ECS", "MemoryUtilization", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name]
-          ]
+          ],
+          stat   = "Average",
+          region = "us-east-2",
           period = 60
-          stat   = "Average"
-          region = var.aws_region
         }
       },
       {
@@ -87,13 +87,13 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         width  = 12,
         height = 6,
         properties = {
-          title = "Running Task Count"
+          title = "Running Task Count (strapi-balaji)",
           metrics = [
-            ["AWS/ECS", "RunningTaskCount", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name]
-          ]
+            ["ECS/ContainerInsights", "RunningTaskCount", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name]
+          ],
+          stat   = "Average",
+          region = "us-east-2",
           period = 60
-          stat   = "Average"
-          region = var.aws_region
         }
       },
       {
@@ -103,14 +103,14 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         width  = 12,
         height = 6,
         properties = {
-          title = "Network In/Out"
+          title = "Network In / Out (Bytes) (strapi-balaji)",
           metrics = [
-            ["AWS/ECS", "NetworkBytesIn", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name],
-            ["AWS/ECS", "NetworkBytesOut", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name]
-          ]
+            ["ECS/ContainerInsights", "NetworkRxBytes", "ClusterName", aws_ecs_cluster.strapi_cluster.name, "ServiceName", aws_ecs_service.ecs_strapi_service.name],
+            [".", "NetworkTxBytes", ".", ".", ".", "."]
+          ],
+          stat   = "Sum",
+          region = "us-east-2",
           period = 60
-          stat   = "Sum"
-          region = var.aws_region
         }
       },
       {
@@ -120,29 +120,30 @@ resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
         width  = 12,
         height = 6,
         properties = {
-          title = "Strapi Latency (ALB)"
+          title = "ALB Target Response Time (strapi-balaji)",
           metrics = [
-            ["AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", aws_lb.app_lb.name, "TargetGroup", aws_lb_target_group.strapi_tg.name]
-          ]
+            ["AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", "app/app-lb-strapi-balaji/e5eedf6743a7cc3a"]
+          ],
+          stat   = "Average",
+          region = "us-east-2",
           period = 60
-          stat   = "Average"
-          region = var.aws_region
         }
       },
       {
-        "type" : "metric",
-        "x" : 0,
-        "y" : 18,
-        "width" : 12,
-        "height" : 6,
-        "properties" : {
-          "title" : "Unhealthy ECS Tasks (via ALB)",
-          "metrics" : [
-            ["AWS/ApplicationELB", "UnHealthyHostCount", "TargetGroup", aws_lb_target_group.strapi_tg.name, "LoadBalancer", aws_lb.app_lb.name]
+        type   = "metric",
+        x      = 12,
+        y      = 12,
+        width  = 12,
+        height = 6,
+        properties = {
+          title = "Target Group Health Check (strapi-balaji)",
+          metrics = [
+            ["AWS/ApplicationELB", "HealthyHostCount", "TargetGroup", "targetgroup/strapi-target-group-balaji/fd9a5648459d8590", "LoadBalancer", "app/app-lb-strapi-balaji/e5eedf6743a7cc3a"],
+            [".", "UnHealthyHostCount", ".", ".", ".", "."]
           ],
-          "period" : 60,
-          "stat" : "Average",
-          "region" : var.aws_region
+          stat   = "Average",
+          region = "us-east-2",
+          period = 60
         }
       }
     ]

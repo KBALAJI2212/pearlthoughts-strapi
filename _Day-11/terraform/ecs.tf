@@ -2,6 +2,11 @@
 resource "aws_ecs_cluster" "strapi_cluster" {
   name = "strapi-cluster-balaji"
 
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+
   tags = {
     Name = "strapi_ecs_cluster-balaji"
   }
