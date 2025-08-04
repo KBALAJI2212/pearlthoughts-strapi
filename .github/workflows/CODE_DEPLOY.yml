@@ -37,15 +37,18 @@ jobs:
                     ContainerPort: 1337
           EOF
 
+      - name: Contents of AppSpec file
+        run: cat appspec.yaml
+
       - name: Initiate CodeDeploy Deployment
         run: |
 
-          ENCODED_CONTENT=$(base64 < appspec.yaml)
-          ENCODED_HASH=$(openssl dgst -sha256 -binary appspec.yaml | openssl base64)
+          ENCODED_CONTENT=$(cat appspec.yaml | base64 -w 0)
+          ENCODED_HASH=$(openssl dgst -sha256 -binary appspec.yaml | openssl base64 -A)
 
           aws deploy create-deployment \
             --application-name strapi-codedeploy-balaji \
             --deployment-group-name strapi-cd-deployment-group-balaji \
-            --revision revisionType=AppSpecContent,appSpecContent="{\"content\":\"$ENCODED_CONTENT\",\"sha256\":\"$ENCODED_HASH\"}" \
+            --revision "revisionType=AppSpecContent,appSpecContent={\"content\":\"$ENCODED_CONTENT\",\"sha256\":\"$ENCODED_HASH\"}" \
             --deployment-config-name CodeDeployDefault.ECSCanary10Percent5Minutes \
             --description "Triggered by GitHub Actions with task definition ${{ env.TASK_DEF_ARN }}"
