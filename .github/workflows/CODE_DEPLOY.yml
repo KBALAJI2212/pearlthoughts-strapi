@@ -54,7 +54,18 @@ jobs:
           ENCODED_CONTENT=$(echo "$CONTENT" | base64 -w 0)
           ENCODED_HASH=$( echo "$CONTENT" | openssl dgst -sha256 -binary | openssl base64 -A)
 
-          cat <<-EOF > codedeploy.json
+          #DEBUG
+          echo "ENCODED_CONTENT:"
+          echo "$ENCODED_CONTENT"
+          echo
+          echo "ENCODED_HASH:"
+          echo "$ENCODED_HASH"
+          echo
+          echo "Recomputed hash from decoded content:"
+          echo "$ENCODED_CONTENT" | base64 -d | openssl dgst -sha256 -binary | openssl base64 -A
+
+
+          cat <<EOF > codedeploy.json
             {
               "applicationName": "$APPLICATION_NAME",
               "deploymentGroupName": "$DEP_GROUP_NAME",
@@ -66,7 +77,7 @@ jobs:
                 }
               },
               "deploymentConfigName": "$DEP_CONFIG_NAME",
-              "description": "Triggered by GitHub Actions with task definition ${{ env.TASK_DEF_ARN }}"
+              "description": "Triggered by GitHub Actions with task definition $TASK_DEF_ARN"
             }
           EOF
 
