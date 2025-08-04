@@ -32,54 +32,38 @@ jobs:
 
       - name: Create AppSpec file
         run: |
-          cat <<-EOF > appspec.yaml
-          version: 0.0
-          Resources:
-            - TargetService:
-                Type: AWS::ECS::Service
-                Properties:
-                  TaskDefinition: "${{ env.TASK_DEF_ARN }}"
-                  LoadBalancerInfo:
-                    ContainerName: "strapi-balaji"
-                    ContainerPort: 1337
+
+          cat <<-EOF > appspec.json
+          {
+            "version": 1,
+            "Resources": [
+              {
+                "TargetService": {
+                  "Type": "AWS::ECS::Service",
+                  "Properties": {
+                    "TaskDefinition": "${{ env.TASK_DEF_ARN }}",
+                    "LoadBalancerInfo": {
+                      "ContainerName": "$CONTAINER_NAME",
+                      "ContainerPort": 1337
+                    }
+                  }
+                }
+              }
+            ]
+          }
           EOF
 
       - name: Contents of AppSpec file
-        run: cat appspec.yaml
+        run: cat appspec.json
 
       - name: Initiate CodeDeploy Deployment
         run: |
 
-          CONTENT=$(<appspec.yaml)
-          ENCODED_CONTENT=$(echo "$CONTENT" | base64 -w 0)
-          ENCODED_HASH=$( echo "$CONTENT" | openssl dgst -sha256 -binary | openssl base64 -A)
+          ESCAPED_CONTENT= $(jq -Rs . < appspec.json)
 
-          #DEBUG
-          echo "ENCODED_CONTENT:"
-          echo "$ENCODED_CONTENT"
-          echo
-          echo "ENCODED_HASH:"
-          echo "$ENCODED_HASH"
-          echo
-          echo "Recomputed hash from decoded content:"
-          echo "$ENCODED_CONTENT" | base64 -d | openssl dgst -sha256 -binary | openssl base64 -A
-
-
-          cat <<EOF > codedeploy.json
-            {
-              "applicationName": "$APPLICATION_NAME",
-              "deploymentGroupName": "$DEP_GROUP_NAME",
-              "revision": {
-                "revisionType": "AppSpecContent",
-                "appSpecContent": {
-                  "content": "${ENCODED_CONTENT}",
-                  "sha256": "${ENCODED_HASH}"
-                }
-              },
-              "deploymentConfigName": "$DEP_CONFIG_NAME",
-              "description": "Triggered by GitHub Actions with task definition $TASK_DEF_ARN"
-            }
-          EOF
-
-      - name: CodeDeploy-Deployment Started
-        run: aws deploy create-deployment --cli-input-json file://codedeploy.json
+          aws deploy create-deployment \
+            --application-name $APPLICATION_NAME \
+            --deployment-group-name $DEP_GROUP_NAME \
+            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$ESCAPED_CONTENT}}" \
+            --deployment-config-name $DEP_CONFIG_NAME \
+            --description "Triggered by GitHub Actions with task definition $TASK_DEF_ARN"
