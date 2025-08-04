@@ -50,8 +50,9 @@ jobs:
       - name: Initiate CodeDeploy Deployment
         run: |
 
-          ENCODED_CONTENT=$(cat appspec.yaml | base64 -w 0)
-          ENCODED_HASH=$( echo -n "$ENCODED_CONTENT" | openssl dgst -sha256 -binary | openssl base64 -A)
+          CONTENT=$(<appspec.yaml)
+          ENCODED_CONTENT=$(echo "$CONTENT" | base64 -w 0)
+          ENCODED_HASH=$( echo "$CONTENT" | openssl dgst -sha256 -binary | openssl base64 -A)
 
           cat <<-EOF > codedeploy.json
             {
