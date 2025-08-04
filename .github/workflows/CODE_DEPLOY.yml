@@ -46,7 +46,7 @@ jobs:
           ENCODED_CONTENT=$(cat appspec.yaml | base64 -w 0)
           ENCODED_HASH=$(openssl dgst -sha256 -binary appspec.yaml | openssl base64 -A)
 
-          cat > codedeploy.json <<EOF
+          cat <<-EOF > codedeploy.json
             {
               "applicationName": "strapi-codedeploy-balaji",
               "deploymentGroupName": "strapi-cd-deployment-group-balaji",
@@ -60,7 +60,7 @@ jobs:
               "deploymentConfigName": "CodeDeployDefault.ECSCanary10Percent5Minutes",
               "description": "Triggered by GitHub Actions with task definition ${{ env.TASK_DEF_ARN }}"
             }
-            EOF
+          EOF
 
       - name: CodeDeploy-Deployment Started
         run: aws deploy create-deployment --cli-input-json file://codedeploy.json
