@@ -59,7 +59,7 @@ jobs:
       - name: Initiate CodeDeploy Deployment
         run: |
 
-          ESCAPED_CONTENT= $(jq -Rs . < appspec.json)
+          ESCAPED_CONTENT=$(jq -Rs . < appspec.json)
 
           aws deploy create-deployment \
             --application-name $APPLICATION_NAME \
