@@ -26,16 +26,16 @@ jobs:
       - name: Create AppSpec file
         run: |
           cat <<-EOF > appspec.yaml
-version: 0.0
-Resources:
-  - TargetService:
-      Type: AWS::ECS::Service
-      Properties:
-        TaskDefinition: "${{ env.TASK_DEF_ARN }}"
-        LoadBalancerInfo:
-          ContainerName: "strapi-balaji"
-          ContainerPort: 1337
-EOF
+          version: 0.0
+          Resources:
+            - TargetService:
+                Type: AWS::ECS::Service
+                Properties:
+                  TaskDefinition: "${{ env.TASK_DEF_ARN }}"
+                  LoadBalancerInfo:
+                    ContainerName: "strapi-balaji"
+                    ContainerPort: 1337
+          EOF
 
       - name: Initiate CodeDeploy Deployment
         run: |
