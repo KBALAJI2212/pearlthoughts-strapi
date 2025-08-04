@@ -44,7 +44,7 @@ jobs:
         run: |
 
           ENCODED_CONTENT=$(cat appspec.yaml | base64 -w 0)
-          ENCODED_HASH=$(openssl dgst -sha256 -binary appspec.yaml | openssl base64 -A)
+          ENCODED_HASH=$( echo -n "$ENCODED_CONTENT" | openssl dgst -sha256 -binary | openssl base64 -A)
 
           cat <<-EOF > codedeploy.json
             {
