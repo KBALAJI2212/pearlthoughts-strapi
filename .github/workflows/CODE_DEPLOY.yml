@@ -7,6 +7,13 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
 
+    env:
+      TASK_DEFINITION: Strapi-Balaji
+      CONTAINER_NAME: strapi-balaji
+      APPLICATION_NAME: strapi-codedeploy-balaji
+      DEP_GROUP_NAME: strapi-cd-deployment-group-balaji
+      DEP_CONFIG_NAME: CodeDeployDefault.ECSCanary10Percent5Minutes
+
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -18,7 +25,7 @@ jobs:
       - name: Get Task Definition ARN
         run: |
           TASK_DEF_ARN=$(aws ecs describe-task-definition \
-            --task-definition Strapi-Balaji \
+            --task-definition $TASK_DEFINITION \
             --query "taskDefinition.taskDefinitionArn" \
             --output text)
           echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_ENV
@@ -48,8 +55,8 @@ jobs:
 
           cat <<-EOF > codedeploy.json
             {
-              "applicationName": "strapi-codedeploy-balaji",
-              "deploymentGroupName": "strapi-cd-deployment-group-balaji",
+              "applicationName": "$APPLICATION_NAME",
+              "deploymentGroupName": "$DEP_GROUP_NAME",
               "revision": {
                 "revisionType": "AppSpecContent",
                 "appSpecContent": {
@@ -57,7 +64,7 @@ jobs:
                   "sha256": "${ENCODED_HASH}"
                 }
               },
-              "deploymentConfigName": "CodeDeployDefault.ECSCanary10Percent5Minutes",
+              "deploymentConfigName": "$DEP_CONFIG_NAME",
               "description": "Triggered by GitHub Actions with task definition ${{ env.TASK_DEF_ARN }}"
             }
           EOF
