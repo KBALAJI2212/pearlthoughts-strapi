@@ -49,6 +49,6 @@ jobs:
           aws deploy create-deployment \
             --application-name strapi-codedeploy-balaji \
             --deployment-group-name strapi-cd-deployment-group-balaji \
-            --revision "revisionType=AppSpecContent,appSpecContent={\"content\":\"$ENCODED_CONTENT\",\"sha256\":\"$ENCODED_HASH\"}" \
+            --revision revisionType=AppSpecContent,appSpecContent="{\"content\":\"'$ENCODED_CONTENT'\",\"sha256\":\"'$ENCODED_HASH'\"}" \
             --deployment-config-name CodeDeployDefault.ECSCanary10Percent5Minutes \
             --description "Triggered by GitHub Actions with task definition ${{ env.TASK_DEF_ARN }}"
