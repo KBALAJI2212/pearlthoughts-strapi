@@ -28,12 +28,12 @@ Docker Swarm is Docker’s native tool for container orchestration. It allows yo
 
 ### Infrastructure:
 
--   Either create your own number of instances and deploy docker inside them (or) copy my ```_Day-22/main.tf``` file from [my Repository](https://github.com/KBALAJI2212/pearlthoughts-strapi/tree/main/_Day-22) and use terraform to provison the resources.
+-   Either create your own number of instances and deploy docker inside them (or) copy my ```_Day-22/main.tf``` file from my [Repository](https://github.com/KBALAJI2212/pearlthoughts-strapi/tree/main/_Day-22) and use terraform to provison the resources.
 
 
 ### Step 1: Initialize the Swarm on the Manager Node
 
-    - Select any one instance and run the following command
+- Select any one instance and run the following command
 
     ```bash
     docker swarm init
@@ -43,31 +43,31 @@ Docker Swarm is Docker’s native tool for container orchestration. It allows yo
 
 ### Step 2: Join Worker Nodes
 
-    - The `init` command will give you a `join` command like this:
+- The `init` command will give you a `join` command like this:
 
     ```bash
     docker swarm join --token <token> <manager-ip>:2377
     ```
 
-    - To get the token again (on manager):
+- To get the token again (on manager):
 
     ```bash
     docker swarm join-token worker
     ```
 
-    - Copy the code and paste it in all worker instances.
+- Copy the code and paste it in all worker instances.
 
 ---
 
 ### Step 3: Deploy a Service
 
-    - Select any Leadder/Manager instance and run the following command to create a service
+- Select any Leadder/Manager instance and run the following command to create a service
 
     ```bash
     docker service create --name <service-name> --replicas <count> <docker-image>
     ```
 
-    - Example:
+- Example:
 
     ```bash
     docker service create --name webapp --replicas 3 nginx:alpine
