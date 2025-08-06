@@ -1,5 +1,3 @@
-````markdown
-
 # Docker Swarm 
 Docker Swarm is Docker’s native tool for container orchestration. It allows you to manage a cluster of Docker hosts (nodes), deploy services across them, scale containers, and ensure high availability.
 
@@ -120,5 +118,3 @@ Docker Swarm is Docker’s native tool for container orchestration. It allows yo
   <img src="./screenshots/PT-Day22.mp4-00:04:01.333.png" width="1000"/>
   <img src="./screenshots/PT-Day22.mp4-00:04:14.817.png" width="1000"/>
   <img src="./screenshots/Screenshot From 2025-08-06 16-55-10.png" width="1000"/>
-
-````
