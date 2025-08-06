@@ -118,3 +118,71 @@ Docker Swarm is Docker’s native tool for container orchestration. It allows yo
   <img src="./screenshots/PT-Day22.mp4-00:04:01.333.png" width="1000"/>
   <img src="./screenshots/PT-Day22.mp4-00:04:14.817.png" width="1000"/>
   <img src="./screenshots/Screenshot From 2025-08-06 16-55-10.png" width="1000"/>
+
+
+---
+
+# Docker Swarm CronJobs
+
+## Docker Swarm Cron Jobs with `crazy-max/swarm-cronjob`
+
+- Docker Swarm **doesn't support native cron jobs**, unlike Kubernetes (`CronJob`). That means you can't schedule tasks like backups or cleanups directly in Swarm. So as a workaround we use
+[`crazy-max/swarm-cronjob`](https://github.com/crazy-max/swarm-cronjob). It adds cron-like scheduling to Swarm using **service labels** and standard cron syntax.
+
+---
+
+## Setup
+
+This example runs a job **every hour** to clean `/tmp` files inside a shared volume. Useful for log cleanup, temp storage, etc.
+
+---
+
+### Step 1: Create network and volume
+
+```bash
+docker network create --driver overlay cronjob-net
+docker volume create temp-data
+```
+
+---
+
+### Step 2: Deploy the `swarm-cronjob` scheduler
+
+```bash
+docker service create \
+  --name swarm-cronjob \
+  --network cronjob-net \
+  --constraint 'node.role == manager' \
+  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+  crazymax/swarm-cronjob
+```
+
+---
+
+### Step 3: Deploy a scheduled cleanup job (runs hourly)
+
+```bash
+docker service create \
+  --name temp-cleanup-job \
+  --network cronjob-net \
+  --mount type=volume,source=temp-data,target=/tmp \
+  --label swarm.cronjob.enable=true \
+  --label swarm.cronjob.schedule="0 * * * *" \
+  --label swarm.cronjob.skip-running=true \
+  busybox \
+  sh -c 'rm -rf /tmp/*'
+```
+
+This job clears the volume `/tmp` every hour.
+
+Done! Now we have hourly cleanup running **natively in Swarm**.
+
+
+---
+
+## For more info
+
+- [GitHub: crazy-max/swarm-cronjob](https://github.com/crazy-max/swarm-cronjob)
+- [crontab.guru](https://crontab.guru) (for cron syntax)
+
+---
